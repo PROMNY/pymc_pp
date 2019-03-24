@@ -8,6 +8,7 @@ install:
 # command to run tests
 
 script:
-  - pytest --doctest-modules --pep8 coveralls -v --cov coveralls --cov-report term-missing
+  - pytest
 after_success:
-  - coveralls
+  - coverage run --source=pymc  pymc/t1.py
+  - coverage report
