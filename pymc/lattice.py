@@ -104,6 +104,7 @@ class lattice:
     def fill_sub_matrix(self):
         n = self.n
         self.sub_matrix = [[], []]
+        """
         for i in range(n**2):
             if i % (2 * n) < n:
                 if i % 2 == 0:
@@ -115,6 +116,12 @@ class lattice:
                     self.sub_matrix[1].append(i)
                 else:
                     self.sub_matrix[0].append(i)
+        """
+        for i in range(n**2):
+            if (i % n + i//n) % 2 == 0:
+                self.sub_matrix[0].append(i)
+            else:
+                self.sub_matrix[1].append(i)
 
         self.sub_matrix = np.asarray(self.sub_matrix)
 
