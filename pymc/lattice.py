@@ -20,11 +20,9 @@ class lattice:
         if self.lattice_type == "graphene":
             assert (n >= 4), "for graphen lattice n grater or equal 4"
             self.fill_adj_matrix_graphene()
-            print("adj")
             self.fill_sub_matrix()
-            print("sub")
             self.fill_pos_matrix_graphene()
-            print("pos")
+
         elif self.lattice_type == "square":
             self.fill_adj_matrix_square()
             self.fill_sub_matrix()
@@ -104,19 +102,7 @@ class lattice:
     def fill_sub_matrix(self):
         n = self.n
         self.sub_matrix = [[], []]
-        """
-        for i in range(n**2):
-            if i % (2 * n) < n:
-                if i % 2 == 0:
-                    self.sub_matrix[0].append(i)
-                else:
-                    self.sub_matrix[1].append(i)
-            else:
-                if i % 2 == 0:
-                    self.sub_matrix[1].append(i)
-                else:
-                    self.sub_matrix[0].append(i)
-        """
+
         for i in range(n**2):
             if (i % n + i//n) % 2 == 0:
                 self.sub_matrix[0].append(i)
