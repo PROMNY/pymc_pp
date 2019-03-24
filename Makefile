@@ -1,8 +1,8 @@
 init:
-	pip install -r requirements.txt
+	pip3 install --user -r requirements.txt
 
 install:
-	pip install --user .
+	pip3 install --user .
 
 test:
-	nosetests tests
+	py.test-3

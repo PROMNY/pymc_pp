@@ -20,10 +20,14 @@ class lattice:
         if self.lattice_type == "graphene":
             assert (n >= 4), "for graphen lattice n grater or equal 4"
             self.fill_adj_matrix_graphene()
+            print("adj")
+            self.fill_sub_matrix()
+            print("sub")
             self.fill_pos_matrix_graphene()
-
+            print("pos")
         elif self.lattice_type == "square":
             self.fill_adj_matrix_square()
+            self.fill_sub_matrix()
             self.fill_pos_matrix_square()
 
     def fill_adj_matrix_square(self):
@@ -34,11 +38,6 @@ class lattice:
             self.adj_matrix[i][i+n] = 1
             self.adj_matrix[i+n][i] = 1
 
-        if self.is_periodic:
-            for i in range(n):
-                self.adj_matrix[i][-n+i] = 1
-                self.adj_matrix[-n+i][i] = 1
-
         for i in range(n**2):
             if i % n > 0:
                 self.adj_matrix[i][i-1] = 1
@@ -48,6 +47,8 @@ class lattice:
             for i in range(n):
                 self.adj_matrix[i*n][i*n + n - 1] = 1
                 self.adj_matrix[i*n + n - 1][i*n] = 1
+                self.adj_matrix[i][-n+i] = 1
+                self.adj_matrix[-n+i][i] = 1
 
     def fill_adj_matrix_graphene(self):
         n = self.n
@@ -56,11 +57,6 @@ class lattice:
         for i in range(n**2 - n):
             self.adj_matrix[i][i+n] = 1
             self.adj_matrix[i+n][i] = 1
-
-        if self.is_periodic:
-            for i in range(n):
-                self.adj_matrix[i][-n+i] = 1
-                self.adj_matrix[-n+i][i] = 1
 
         R = [2*i for i in range(n//2)]
         R += [2*i+1+n for i in range(n//2)][:-1]
@@ -76,26 +72,18 @@ class lattice:
                 self.adj_matrix[n*i][n*i + n - 1] = 1
                 self.adj_matrix[n*i + n - 1][n*i] = 1
 
+            for i in range(n):
+                self.adj_matrix[i][-n+i] = 1
+                self.adj_matrix[-n+i][i] = 1
+
     def fill_pos_matrix_square(self):
         n = self.n
         self.pos_matrix = []
-        self.sub_matrix = [[], []]
 
         for i in range(n**2):
             x = i % n
             y = n - (i // n) - 1
             self.pos_matrix.append([x, y])
-
-            if i % (2 * n) < n:
-                if i % 2 == 0:
-                    self.sub_matrix[0].append(i)
-                else:
-                    self.sub_matrix[1].append(i)
-            else:
-                if i % 2 == 0:
-                    self.sub_matrix[1].append(i)
-                else:
-                    self.sub_matrix[0].append(i)
 
         self.pos_matrix = np.asarray(self.pos_matrix)
         self.sub_matrix = np.asarray(self.sub_matrix)
@@ -103,27 +91,31 @@ class lattice:
     def fill_pos_matrix_graphene(self):
         n = self.n
         self.pos_matrix = []
-        self.sub_matrix = [[], []]
         for i in range(n**2):
             j = i % n
-            if i % (2 * n) < n:
-                if i % 2 == 0:
-                    x = 0.5 + 1.5 * j
-                    self.sub_matrix[0].append(i)
-                else:
-                    x = 1.5 * j
-                    self.sub_matrix[1].append(i)
-            else:
-                if i % 2 == 0:
-                    x = 1.5 * j
-                    self.sub_matrix[1].append(i)
-                else:
-                    x = 0.5 + 1.5 * j
-                    self.sub_matrix[0].append(i)
+            x = 1.5 * j
+            if i in self.sub_matrix[0]:
+                x += 0.5
             y = np.sqrt(3)/2 * (n - (i // n) - 1)
             self.pos_matrix.append([x, y])
 
         self.pos_matrix = np.asarray(self.pos_matrix)
+
+    def fill_sub_matrix(self):
+        n = self.n
+        self.sub_matrix = [[], []]
+        for i in range(n**2):
+            if i % (2 * n) < n:
+                if i % 2 == 0:
+                    self.sub_matrix[0].append(i)
+                else:
+                    self.sub_matrix[1].append(i)
+            else:
+                if i % 2 == 0:
+                    self.sub_matrix[1].append(i)
+                else:
+                    self.sub_matrix[0].append(i)
+
         self.sub_matrix = np.asarray(self.sub_matrix)
 
     def plot(self):
@@ -163,6 +155,6 @@ class lattice:
 
         plt.grid(True)
         plt.axis('equal')
-        plt.xlim(-0.1, np.amax(X) + 0.1)
-        plt.ylim(-0.1, np.amax(Y) + 0.1)
+        # plt.xlim(-0.1, np.amax(X) + 0.1)
+        # plt.ylim(-0.1, np.amax(Y) + 0.1)
         plt.show()
