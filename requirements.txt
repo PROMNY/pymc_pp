@@ -2,4 +2,4 @@ matplotlib
 numpy
 pytest
 pyyaml
-python-coveralls
+coveralls

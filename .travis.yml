@@ -11,4 +11,4 @@ script:
   - pytest
 after_success:
   - coverage run --source=pymc  pymc/t1.py
-  - coverage report
+  - coveralls
