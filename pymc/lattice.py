@@ -118,29 +118,19 @@ class lattice:
             plt.figure(figsize=(10, 10))
         n = self.n
 
-        X = [[], []]
-        Y = [[], []]
-        for sub in range(2):
-            for i in self.sub_matrix[sub]:
-                X[sub].append(self.pos_matrix[i][0])
-                Y[sub].append(self.pos_matrix[i][1])
-
-        # X = [pos[0] for pos in self.pos_matrix]
-        # Y = [pos[1] for pos in self.pos_matrix]
-        plt.scatter(X[0], Y[0], color="blue")
-        plt.scatter(X[1], Y[1], color="red")
+        X = [pos[0] for pos in self.pos_matrix]
+        Y = [pos[1] for pos in self.pos_matrix]
+        plt.scatter(X, Y, color="blue")
 
         for i in range(n**2):
             for j in range(i, n**2):
                 if self.adj_matrix[i][j] == 1:
                     v = self.pos_matrix[i] - self.pos_matrix[j]
                     len = np.sqrt(v[0]**2 + v[1]**2)
-
                     x = [self.pos_matrix[i][0],
                          self.pos_matrix[j][0]]
                     y = [self.pos_matrix[i][1],
                          self.pos_matrix[j][1]]
-
                     if len < 1.1:
                         plt.plot(x, y, color="black")
                     else:
@@ -148,6 +138,6 @@ class lattice:
 
         plt.grid(True)
         plt.axis('equal')
-        # plt.xlim(-0.1, np.amax(X) + 0.1)
-        # plt.ylim(-0.1, np.amax(Y) + 0.1)
+        plt.xlim(-0.1, np.amax(X) + 0.1)
+        plt.ylim(-0.1, np.amax(Y) + 0.1)
         plt.show()
