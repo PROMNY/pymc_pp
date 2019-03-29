@@ -1,8 +1,0 @@
-pymc/__init__.py
-pymc/fkham.py
-pymc/lattice.py
-pymc/t1.py
-pymc.egg-info/PKG-INFO
-pymc.egg-info/SOURCES.txt
-pymc.egg-info/dependency_links.txt
-pymc.egg-info/top_level.txt
