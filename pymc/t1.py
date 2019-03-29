@@ -1,6 +1,6 @@
-from lattice import lattice
-from fkham import fkham
+from lattice import Lattice
+from fkham import Hamiltonian
 
-lat = lattice(4, "graphene")
+lat = Lattice(4, "graphene")
 print(lat.sub_matrix)
 lat.plot()

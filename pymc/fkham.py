@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class fkham:
+class Hamiltonian:
 
     def __init__(self, lattice, U=0, t=-1.0):
         self.t = t
