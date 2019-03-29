@@ -113,12 +113,11 @@ class Lattice:
 
     def plot_hopping(self, i, j):
         v = self.pos_matrix[i] - self.pos_matrix[j]
-        len = np.sqrt(v[0]**2 + v[1]**2)
-        x = [self.pos_matrix[i][0],
-             self.pos_matrix[j][0]]
-        y = [self.pos_matrix[i][1],
-             self.pos_matrix[j][1]]
-        if len < 1.1:
+        if np.sqrt(v[0]**2 + v[1]**2) < 1.1:
+            x = [self.pos_matrix[i, 0],
+                 self.pos_matrix[j, 0]]
+            y = [self.pos_matrix[i, 1],
+                 self.pos_matrix[j, 1]]
             plt.plot(x, y, color="black")
 
     def plot(self):
@@ -126,17 +125,16 @@ class Lattice:
             plt.figure(figsize=(10, 6))
         else:
             plt.figure(figsize=(10, 10))
-        n = self.n
 
         X = self.pos_matrix[:, 0]
         Y = self.pos_matrix[:, 1]
 
         plt.scatter(X, Y, color="black")
 
-        for i in range(n**2):
-            for j in range(i, n**2):
+        for i in range(self.n**2):
+            for j in range(i, self.n**2):
                 if self.adj_matrix[i][j] == 1:
-                    self.plot_point(i, j)
+                    self.plot_hopping(i, j)
 
         plt.grid(True)
         plt.axis('equal')
