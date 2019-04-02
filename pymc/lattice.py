@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import itertools
 
 
 class Lattice:
@@ -111,13 +112,12 @@ class Lattice:
 
         self.sub_matrix = np.asarray(self.sub_matrix)
 
-    def plot_hopping(self, i, j):
+    def plot_hopping(self, T):
+        i, j = T
         v = self.pos_matrix[i] - self.pos_matrix[j]
         if np.sqrt(v[0]**2 + v[1]**2) < 1.1:
-            x = [self.pos_matrix[i, 0],
-                 self.pos_matrix[j, 0]]
-            y = [self.pos_matrix[i, 1],
-                 self.pos_matrix[j, 1]]
+            x = [self.pos_matrix[i, 0], self.pos_matrix[j, 0]]
+            y = [self.pos_matrix[i, 1], self.pos_matrix[j, 1]]
             plt.plot(x, y, color="black")
 
     def plot(self):
@@ -128,13 +128,10 @@ class Lattice:
 
         X = self.pos_matrix[:, 0]
         Y = self.pos_matrix[:, 1]
-
         plt.scatter(X, Y, color="black")
 
-        for i in range(self.n**2):
-            for j in range(i, self.n**2):
-                if self.adj_matrix[i][j] == 1:
-                    self.plot_hopping(i, j)
+        it = itertools.product(self.sub_matrix[0], self.sub_matrix[1])
+        list(map(self.plot_hopping, it))
 
         plt.grid(True)
         plt.axis('equal')
