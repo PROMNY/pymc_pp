@@ -120,7 +120,7 @@ class Lattice:
             y = [self.pos_matrix[i, 1], self.pos_matrix[j, 1]]
             plt.plot(x, y, color="black")
 
-    def plot(self):
+    def plot(self, show=True):
         if self.lattice_type == "graphene":
             plt.figure(figsize=(10, 6))
         else:
@@ -135,6 +135,8 @@ class Lattice:
 
         plt.grid(True)
         plt.axis('equal')
-        plt.xlim(-0.1, np.amax(X) + 0.1)
-        plt.ylim(-0.1, np.amax(Y) + 0.1)
-        plt.show()
+        plt.xlim(-1, np.amax(X) + 1)
+        plt.ylim(-1, np.amax(Y) + 1)
+
+        if show:
+            plt.show()

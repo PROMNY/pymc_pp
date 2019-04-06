@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class Hamiltonian:
@@ -17,25 +18,54 @@ class Hamiltonian:
         assert (order in ["random", "sublattice", "separation"])
 
         for i in range(self.n**2):
-            self.H[i][i] = 0.0
+            self.H[i, i] = 0.0
 
         if order == "random":
-            for _ in range(nad):
-                while True:
-                    i = np.floor(np.random.rand()*self.n**2)
-                    if self.H[i][i] < self.U:
-                        self.H[i][i] = self.U
-                        break
-
+            self.put_adatoms_order_random(nad)
         elif order == "sublattice":
-            if nad >= self.n**2 // 2:
-                for i in self.lattice.sub_matrix[0]:
-                    self.H[i][i] = self.U
-                nad -= self.n**2 // 2
-            for _ in range(nad):
-                while True:
-                    i = np.floor(np.random.rand()*(self.n**2 // 2))
-                    j = self.lattice.sub_matrix[1][i]
-                    if self.H[j][j] < self.U:
-                        self.H[j][j] = self.U
-                        break
+            self.put_adatoms_order_sublattice(nad)
+        elif order == "separation":
+            self.put_adatoms_order_separation(nad)
+
+    def put_adatoms_order_random(self, nad):
+        index = np.random.choice(self.n**2, nad, replace=False)
+        for i in index:
+            self.H[i, i] = self.U
+
+    def put_adatoms_order_separation(self, nad):
+        i = 0
+        while i < nad:
+            x_index = i % self.n
+            y_index = i // self.n
+            k = x_index * self.n + y_index
+            self.H[k, k] = self.U
+            i += 1
+
+    def put_adatoms_order_sublattice(self, nad):
+
+        if nad >= self.n**2 // 2:
+            for i in self.lattice.sub_matrix[0]:
+                self.H[i, i] = self.U
+            nad -= self.n**2 // 2
+        for _ in range(nad):
+            while True:
+                i = int(np.random.rand()*(self.n**2 // 2))
+                j = self.lattice.sub_matrix[1][i]
+                if self.H[j, j] < self.U:
+                    self.H[j, j] = self.U
+                    break
+
+    def plot(self, show=True):
+        self.lattice.plot(False)
+
+        X = []
+        Y = []
+        for i in range(self.n**2):
+            if self.H[i, i] > 0:
+                X.append(self.lattice.pos_matrix[i, 0])
+                Y.append(self.lattice.pos_matrix[i, 1])
+
+        plt.scatter(X, Y, color="red", zorder=3, s=100)
+
+        if show:
+            plt.show()

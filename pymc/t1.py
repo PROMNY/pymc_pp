@@ -2,5 +2,7 @@ from lattice import Lattice
 from fkham import Hamiltonian
 
 lat = Lattice(4, "graphene")
-print(lat.sub_matrix)
-lat.plot()
+ham = Hamiltonian(lat, 1)
+ham.put_adatoms(8, "sublattice")
+# ham.plot()
+print(ham.H)
