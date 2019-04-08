@@ -3,6 +3,6 @@ from fkham import Hamiltonian
 
 lat = Lattice(4, "graphene")
 ham = Hamiltonian(lat, 1)
-ham.put_adatoms(8, "sublattice")
-# ham.plot()
+ham.put_adatoms(15, "sublattice")
+ham.plot()
 print(ham.H)

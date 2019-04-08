@@ -47,13 +47,11 @@ class Hamiltonian:
             for i in self.lattice.sub_matrix[0]:
                 self.H[i, i] = self.U
             nad -= self.n**2 // 2
-        for _ in range(nad):
-            while True:
-                i = int(np.random.rand()*(self.n**2 // 2))
-                j = self.lattice.sub_matrix[1][i]
-                if self.H[j, j] < self.U:
-                    self.H[j, j] = self.U
-                    break
+
+        index = np.random.choice(self.lattice.sub_matrix[1],
+                                 nad, replace=False)
+        for i in index:
+            self.H[i, i] = self.U
 
     def plot(self, show=True):
         self.lattice.plot(False)
