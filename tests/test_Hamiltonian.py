@@ -7,8 +7,7 @@ import numpy as np
 class HamiltonianTests(unittest.TestCase):
 
     def test_h_matrix_sum_random(self):
-        lat = pymc.Lattice(4, "graphene")
-        ham = pymc.Hamiltonian(lat, 1)
+        ham = pymc.Hamiltonian(4, "graphene", t=-1, U=1)
         ham.put_adatoms(6, "random")
 
         res = np.trace(ham.H)
@@ -16,8 +15,7 @@ class HamiltonianTests(unittest.TestCase):
         np.testing.assert_almost_equal(res, 6.0)
 
     def test_h_matrix_sum_sublattice(self):
-        lat = pymc.Lattice(4, "graphene")
-        ham = pymc.Hamiltonian(lat, 1)
+        ham = pymc.Hamiltonian(4, "graphene", t=-1, U=1)
         ham.put_adatoms(6, "sublattice")
 
         res = np.trace(ham.H)
@@ -25,8 +23,7 @@ class HamiltonianTests(unittest.TestCase):
         np.testing.assert_almost_equal(res, 6.0)
 
     def test_h_matrix_sum_separation(self):
-        lat = pymc.Lattice(4, "graphene")
-        ham = pymc.Hamiltonian(lat, 1)
+        ham = pymc.Hamiltonian(4, "graphene", t=-1, U=1)
         ham.put_adatoms(6, "separation")
 
         res = np.trace(ham.H)
@@ -34,8 +31,7 @@ class HamiltonianTests(unittest.TestCase):
         np.testing.assert_almost_equal(res, 6.0)
 
     def test_h_matrix_separation(self):
-        lat = pymc.Lattice(4, "graphene")
-        ham = pymc.Hamiltonian(lat, 1)
+        ham = pymc.Hamiltonian(4, "graphene", t=-1, U=1)
         ham.put_adatoms(8, "separation")
 
         res = np.asarray([
@@ -59,8 +55,7 @@ class HamiltonianTests(unittest.TestCase):
         np.testing.assert_array_almost_equal(ham.H, res, verbose=False)
 
     def test_h_matrix_sublattice(self):
-        lat = pymc.Lattice(4, "graphene")
-        ham = pymc.Hamiltonian(lat, 1)
+        ham = pymc.Hamiltonian(4, "graphene", t=-1, U=1)
         ham.put_adatoms(8, "sublattice")
 
         res = np.asarray([

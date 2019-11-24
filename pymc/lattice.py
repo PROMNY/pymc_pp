@@ -3,14 +3,14 @@ import matplotlib.pyplot as plt
 import itertools
 
 
-class Lattice:
+class Lattice(object):
 
-    def __init__(self, n, lattice_type, is_periodic=True,):
+    def __init__(self, n, lattice_type, is_periodic=True):
         """Initialize new lattice with given parameters:
         n - linear lattice size
         lattice_type - sqrare or graphene
         is_periodic=True pbc"""
-
+        super(Lattice, self).__init__()
         assert (lattice_type in ["square", "graphene"]), "Unknown lattice type"
         assert (n % 2 == 0), "n must be even"
 
