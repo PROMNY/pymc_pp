@@ -1,6 +1,9 @@
 import numpy as np
 from tqdm import tqdm
-import cupy
+try:
+    import cupy
+except Exception():
+    print("failed to import cupy")
 
 
 class Opt(object):
