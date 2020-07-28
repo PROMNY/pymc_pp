@@ -5,4 +5,4 @@ install:
 	pip3 install --user .
 
 test:
-	py.test-3
+	py.test

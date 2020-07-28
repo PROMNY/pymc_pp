@@ -35,7 +35,6 @@ class Hamiltonian(Lattice):
         self.filled_sites = set([i for i in range(self.n**2) if self.H[i, i] != 0.0])
         self.empty_sites = set(range(self.n**2)).difference(set(self.filled_sites))
 
-
     def put_adatoms_order_random(self):
         index = np.random.choice(self.n**2, self.nad_to_put, replace=False)
         for i in index:
@@ -76,3 +75,8 @@ class Hamiltonian(Lattice):
 
         if show:
             plt.show()
+
+    def get_F(self, T, cp):
+        eigv = np.linalg.eigvalsh(self.H)
+        E = -T * sum(np.log(np.exp((cp - eigv)/T) + 1))
+        return E

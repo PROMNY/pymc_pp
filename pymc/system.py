@@ -4,7 +4,6 @@ from .obs import Obs
 from .opt import Opt
 
 
-
 class System(Hamiltonian, Obs, Opt):
     "Class of possible raunners"
 
