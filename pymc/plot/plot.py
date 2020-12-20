@@ -30,3 +30,18 @@ def plot(self, show=True):
 
     if show:
         plt.show()
+
+def plot_system(self, show=True):
+        self.plot(False)
+
+        X = []
+        Y = []
+        for i in range(self.n**2):
+            if self.H[i, i] > 0:
+                X.append(self.pos_matrix[i, 0])
+                Y.append(self.pos_matrix[i, 1])
+
+        plt.scatter(X, Y, color="red", zorder=3, s=100)
+
+        if show:
+            plt.show()
