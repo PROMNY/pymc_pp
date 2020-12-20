@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from adatoms import AdatomsMixin
+from .adatoms import AdatomsMixin
 
 
 class Hamiltonian(AdatomsMixin):
@@ -15,7 +15,7 @@ class Hamiltonian(AdatomsMixin):
         self.H *= self.t
         self.cp = cp
         self.T = T
-        self.calculate_eigv()
+        self.eigv = None
 
     def calculate_eigv(self):
         self.eigv = np.linalg.eigvalsh(self.H)
