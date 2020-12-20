@@ -1,3 +1,7 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import itertools
+
 def plot_hopping(self, T):
     i, j = T
     v = self.pos_matrix[i] - self.pos_matrix[j]
