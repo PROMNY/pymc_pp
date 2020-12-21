@@ -1,4 +1,3 @@
-import unittest
 import numpy as np
 import sys
 import os
@@ -7,7 +6,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(
     os.path.dirname(__file__), '../../pymc')))
 import lattice
 
-class SquareLatticeTests(unittest.TestCase):
+class TestSquareLattice():
     """Basic test cases."""
 
     def test_adj_matrix_square(self):

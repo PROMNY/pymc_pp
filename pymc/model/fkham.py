@@ -8,7 +8,7 @@ class Hamiltonian(AdatomsMixin):
     def __init__(self, lattice, t=-1, U=0, cp=0, T=1):
 
         self.lattice = lattice
-        self.n = self.lattice
+        self.n = self.lattice.n
         self.t = t
         self.U = U
         self.H = np.copy(self.lattice.adj_matrix)

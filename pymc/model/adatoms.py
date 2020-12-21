@@ -22,10 +22,10 @@ class AdatomsMixin():
         elif order == "separation":
             self.put_adatoms_order_separation()
 
-        self.filled_sites = np.asarray(
-            [i for i in range(self.n**2) if self.H[i, i] != 0.0])
-        self.empty_sites = np.asarray(
-            [i for i in range(self.n**2) if i not in self.filled_sites])
+        self.filled_sites = [i for i in range(self.n**2) if self.H[i, i] != 0.0]
+        self.empty_sites = [i for i in range(self.n**2) if i not in self.filled_sites]
+        
+        self.temp_H = np.copy(self.H)
 
     def put_adatoms_order_random(self):
         index = np.random.choice(self.n**2, self.nad_to_put, replace=False)
@@ -47,11 +47,12 @@ class AdatomsMixin():
             for i in self.lattice.sub_matrix[0]:
                 self.H[i, i] = self.U
             self.nad_to_put -= self.n**2 // 2
-
-        index = np.random.choice(self.lattice.sub_matrix[1],
-                                 self.nad_to_put, replace=False)
-        for i in index:
-            self.H[i, i] = self.U
+        
+        if self.nad_to_put > 0:
+            index = np.random.choice(self.lattice.sub_matrix[1],
+                                    self.nad_to_put, replace=False)
+            for i in index:
+                self.H[i, i] = self.U
 
     def swap_in_temp_H(self, i, j):
         self.temp_H[i, i] = 0.0
@@ -60,10 +61,14 @@ class AdatomsMixin():
     def swap_in_H(self, i, j):
         self.H[i, i] = 0.0
         self.H[j, j] =  self.U
-        self.filled_sites = np.setdiff1d(self.filled_sites, np.asarray([i]))
-        self.empty_sites = np.setdiff1d(self.empty_sites, np.asarray([j]))
+        
+        self.filled_sites.remove(i)
+        self.empty_sites.remove(j)
+        
         self.filled_sites.append(j)
         self.empty_sites.append(i)
+
+        self.temp_H = np.copy(self.H)
 
     def un_swap_in_temp_H(self, i, j):
         self.temp_H[j, j] = 0.0
