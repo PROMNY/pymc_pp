@@ -55,3 +55,27 @@ class TestModel():
         E2 = FK2.get_F(T=1, cp=1)
         assert E1 < E2
 
+    def test_hamiltonian_energy2(self):
+        l1 = lattice.GrapheneLattice(10)
+        FK1 = model.Hamiltonian(lattice=l1, t=-1, U=2)
+        FK1.calculate_eigv()
+        E1 = FK1.get_F(T=1, cp=1)
+
+        FK2 = model.Hamiltonian(lattice=l1, t=-1, U=2)
+        FK2.T = 1
+        FK2.cp = 1
+        FK2.calculate_eigv()
+        E2 = FK2.get_F()
+        np.testing.assert_almost_equal(E1, E2)
+
+    def test_hamiltonian_energy3(self):
+        l1 = lattice.GrapheneLattice(10)
+        FK1 = model.Hamiltonian(lattice=l1, t=-1, U=2)
+        FK1.calculate_eigv()
+        E1 = FK1.get_F(T=1, cp=1)
+
+        FK2 = model.Hamiltonian(lattice=l1, t=-1, U=2)
+        FK2.calculate_eigv(temp=True)
+        E2 = FK2.get_F(temp=True, T=1, cp=1)
+        np.testing.assert_almost_equal(E1, E2)
+

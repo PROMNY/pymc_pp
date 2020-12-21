@@ -38,5 +38,14 @@ class Hamiltonian(AdatomsMixin):
         F = -1 * T * sum(np.log(np.exp((cp - eigv)/T) + 1))
         return F
 
-    def get_ne(self, T=None, cp=None):
-        pass
+    def get_ne(self, temp=False, T=None, cp=None):
+        if T is None:
+            T = self.T
+        if cp is None:
+            cp = self.cp
+        if temp:
+            eigv = self.temp_eigv
+        else:
+            eigv = self.eigv
+        Ne = sum(1.0 / (np.exp((eigv - cp)/T) + 1))
+        return Ne
