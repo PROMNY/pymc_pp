@@ -41,6 +41,3 @@ class TestModel():
         np.testing.assert_almost_equal(np.amax(FK.eigv), 3.0)
         np.testing.assert_almost_equal(np.amin(FK.eigv), -3.0)
         np.testing.assert_almost_equal(np.sum(FK.eigv), 0)
-
-        
-
