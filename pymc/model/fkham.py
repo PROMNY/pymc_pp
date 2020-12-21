@@ -13,19 +13,29 @@ class Hamiltonian(AdatomsMixin):
         self.U = U
         self.H = np.copy(self.lattice.adj_matrix)
         self.H *= self.t
+        self.temp_H = np.copy(self.H)
         self.cp = cp
         self.T = T
         self.eigv = None
+        self.temp_eigv = None
 
-    def calculate_eigv(self):
-        self.eigv = np.linalg.eigvalsh(self.H)
+    def calculate_eigv(self, temp=False):
+        if temp:
+            self.temp_eigv = np.linalg.eigvalsh(self.temp_H)
+        else:
+            self.eigv = np.linalg.eigvalsh(self.H)
 
-    def get_F(self, T=None, cp=None):
+    def get_F(self, temp=False, T=None, cp=None):
         if T is None:
             T = self.T
         if cp is None:
             cp = self.cp
-        F = -1 * T * sum(np.log(np.exp((cp - self.eigv)/T) + 1))
+        if temp:
+            eigv = self.temp_eigv
+        else:
+            eigv = self.eigv
+
+        F = -1 * T * sum(np.log(np.exp((cp - eigv)/T) + 1))
         return F
 
     def get_ne(self, T=None, cp=None):
