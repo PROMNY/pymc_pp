@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(
 import lattice
 import model
 
-class TestModel():
+class TestModelEnergy():
 
     def test_hamiltonian_hopping(self):
         l1 = lattice.GrapheneLattice(4)

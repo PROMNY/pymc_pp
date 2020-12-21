@@ -1,5 +1,3 @@
-from .fkham import *
+from .model import *
 from .lattice import *
-from .system import *
-from .obs import *
-from .opt import *
+from .solvers import *
