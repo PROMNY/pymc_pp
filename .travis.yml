@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.5"
+  - "3"
 
 # command to install dependencies
 install:
@@ -8,7 +8,6 @@ install:
 # command to run tests
 
 script:
-  - pytest
+  - coverage run -m --source=./pymc  pytest
 after_success:
-  - coverage run --source=pymc  pymc/t1.py
   - coveralls

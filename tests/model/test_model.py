@@ -41,3 +41,17 @@ class TestModel():
         np.testing.assert_almost_equal(np.amax(FK.eigv), 3.0)
         np.testing.assert_almost_equal(np.amin(FK.eigv), -3.0)
         np.testing.assert_almost_equal(np.sum(FK.eigv), 0)
+
+    def test_hamiltonian_energy(self):
+        l1 = lattice.GrapheneLattice(10)
+        FK1 = model.Hamiltonian(lattice=l1, t=-1, U=2)
+        FK1.put_adatoms(50, "sublattice")
+        FK1.calculate_eigv()
+        E1 = FK1.get_F(T=1, cp=1)
+
+        FK2 = model.Hamiltonian(lattice=l1, t=-1, U=2)
+        FK2.put_adatoms(50, "random")
+        FK2.calculate_eigv()
+        E2 = FK2.get_F(T=1, cp=1)
+        assert E1 < E2
+

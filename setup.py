@@ -12,7 +12,7 @@ with open('LICENSE') as f:
     license = f.read()
 
 setup(
-    name='pymc',
+    name='pymc_pp',
     version='0.1.0',
     description='Monte-Carlo simulations of Falicov-Kimball in python',
     long_description=readme,
