@@ -1,0 +1,24 @@
+import numpy as np
+
+
+class CVObs():
+
+    def __init__(self, model):
+        self.model = model
+        self.value_list = [[], []]
+
+    def has_converged(self):
+        pass
+
+    def calculate(self, add_result=True):
+        E = self.model.get_F()
+
+        if add_result:
+            self.value_list[0].append(E)
+            self.value_list[1].append(E**2)
+        return (E, E**2)
+
+    def get_result(self):
+        cv = np.average(self.value_list[1]) - np.average(self.value_list[1])**2
+        cv /= (self.model.n**2 * self.model.T**2)
+        return cv

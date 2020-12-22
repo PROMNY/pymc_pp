@@ -10,14 +10,14 @@ import model
 class TestModelNe():
 
 
-    def test_hamiltonian_Ne1(self):
+    def test_hamiltonian_Ne_1(self):
         l1 = lattice.GrapheneLattice(10)
         FK = model.Hamiltonian(lattice=l1, t=-1, U=2)
         FK.calculate_eigv()
         Ne = FK.get_ne(T=0.01, cp=0)
         np.testing.assert_almost_equal(Ne, 50)
 
-    def test_hamiltonian_Ne2(self):
+    def test_hamiltonian_Ne_2(self):
         l1 = lattice.GrapheneLattice(10)
         FK = model.Hamiltonian(lattice=l1, t=-1, U=2)
         FK.put_adatoms(50, "sublattice")
@@ -25,7 +25,7 @@ class TestModelNe():
         Ne = FK.get_ne(T=0.01, cp=1)
         np.testing.assert_almost_equal(Ne, 50)
 
-    def test_hamiltonian_Ne3(self):
+    def test_hamiltonian_Ne_3(self):
         l1 = lattice.GrapheneLattice(10)
         FK1 = model.Hamiltonian(lattice=l1, t=-1, U=2)
         FK1.calculate_eigv(temp=True)

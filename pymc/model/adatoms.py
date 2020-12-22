@@ -6,6 +6,7 @@ class AdatomsMixin():
     def put_adatoms(self, nad, order="random"):
         assert (self.U != 0), "U is equal to zero, adatoms can not be put"
         assert (nad < self.n**2), "too many adatoms"
+        assert (nad > 0), "Wrong number of adatoms"
         assert (order in ["random", "sublattice", "separation"])
 
         self.nad = nad
