@@ -2,21 +2,18 @@ import numpy as np
 from tqdm import tqdm
 
 
-def metropolis_numpy(model, n_iter, T, cp, show_tqdm=True):
-    assert T > 0, "T equal to zero"
-    be = 1.0 / T
+def metropolis_numpy(model, n_iter, show_tqdm=True):
+    assert model.T > 0, "T equal to zero"
+    be = 1.0 / model.T
     
     if show_tqdm:
-        iterable = tqdm(range(iter))
+        iterable = tqdm(range(n_iter))
     else:
-        iterable = range(iter)
+        iterable = range(n_iter)
 
     acc = 0
     act = 0
-
-    model.cp = cp
-    model.T = T
-
+    model.calculate_eigv()
     E0 = model.get_F()
 
     for _ in iterable:
@@ -38,4 +35,4 @@ def metropolis_numpy(model, n_iter, T, cp, show_tqdm=True):
         else:
             model.un_swap_in_temp_H(ch_filled, ch_empty)
 
-    return {"E": E0, "acc": acc/iter, "act": act/iter}
+    return {"E": E0, "acc": acc/n_iter, "act": act/n_iter}

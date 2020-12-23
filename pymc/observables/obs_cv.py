@@ -7,9 +7,6 @@ class CVObs():
         self.model = model
         self.value_list = [[], []]
 
-    def has_converged(self):
-        pass
-
     def calculate(self, add_result=True):
         E = self.model.get_F()
 
