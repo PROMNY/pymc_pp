@@ -5,7 +5,7 @@ from tqdm import tqdm
 def metropolis_numpy(model, n_iter, show_tqdm=True):
     assert model.T > 0, "T equal to zero"
     be = 1.0 / model.T
-    
+
     if show_tqdm:
         iterable = tqdm(range(n_iter))
     else:

@@ -17,7 +17,7 @@ class DeltaObs(BasicObs):
             d /= self.model.nad_norm
         else:
             d /= (1 - self.model.nad_norm)
-        
+
         if add_result:
             self.value_list.append(d)
         return d

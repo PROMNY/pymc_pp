@@ -6,7 +6,7 @@ class BasicObs():
     def __init__(self, model):
         self.value_list = []
         self.model = model
-    
+
     def reset(self):
         self.value_list = []
 

@@ -10,7 +10,7 @@ class GrapheneLattice():
         Attributes: 
         self.pos_matrix[i] return x and y coordinates of i-th site
         self.adj_matrix[i][j] is 1 if sites are connected, 0 if not
-        self.sub_matrix[i] i in [0,1] returns list of atoms in given sublattice  
+        self.sub_matrix[i], i in [0,1] returns list of atoms in given sublattice  
         """
 
     def __init__(self, n, periodic=True):
