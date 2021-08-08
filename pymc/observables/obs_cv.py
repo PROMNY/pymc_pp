@@ -1,7 +1,8 @@
 import numpy as np
+from .basic_obs import BasicObs
 
 
-class CVObs():
+class CVObs(BasicObs):
 
     def __init__(self, model):
         self.model = model
@@ -16,6 +17,9 @@ class CVObs():
         return (E, E**2)
 
     def get_result(self):
-        cv = np.average(self.value_list[1]) - np.average(self.value_list[1])**2
+        cv = np.average(self.value_list[1]) - np.average(self.value_list[0])**2
         cv /= (self.model.n**2 * self.model.T**2)
         return cv
+
+    def reset(self):
+        self.value_list = [[], []]
