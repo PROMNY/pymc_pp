@@ -33,3 +33,14 @@ class TestObsCV():
         cv1 = self.prepare_model_cv(10, 50, "sublattice", T=0.1)
         cv2 = self.prepare_model_cv(10, 50, "random", T=0.1)
         assert cv1 < cv2
+
+    def test_obs_cv_2(self):
+        l1 = pymc.GrapheneLattice(10)
+        FK = pymc.Hamiltonian(lattice=l1, t=-1, U=2, T=0.2)
+        o_cv = pymc.CVObs(FK)
+        for _ in range(50):
+            FK.put_adatoms(50, "random")
+            FK.calculate_eigv()
+            o_cv.calculate()
+        o_cv.reset()
+        assert o_cv.get_result() is None

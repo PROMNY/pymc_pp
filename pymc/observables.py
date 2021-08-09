@@ -28,7 +28,10 @@ class BasicObs():
         return l1_std <= l2_std
 
     def get_result(self):
-        return np.average(self.value_list)
+        if len(self.value_list) > 0:
+            return np.average(self.value_list)
+        else:
+            return None
 
 
 class EnergyObs(BasicObs):
@@ -87,6 +90,9 @@ class CVObs(BasicObs):
         return (E, E**2)
 
     def get_result(self):
+        if len(self.value_list[0]) == 0:
+            return None
+
         cv = np.average(self.value_list[1]) - np.average(self.value_list[0])**2
         cv /= (self.model.n**2 * self.model.T**2)
         return cv
