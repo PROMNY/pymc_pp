@@ -3,6 +3,7 @@ from itertools import product
 
 
 class BasicObs():
+    name = "Basic Observable"
 
     def __init__(self, model):
         self.value_list = []
@@ -35,6 +36,7 @@ class BasicObs():
 
 
 class EnergyObs(BasicObs):
+    name = "Free energy"
 
     def calculate(self, add_result=True):
         E = self.model.get_F()
@@ -44,6 +46,7 @@ class EnergyObs(BasicObs):
 
 
 class CorrelationObs(BasicObs):
+    name = "C1"
 
     def __init__(self, model):
         BasicObs.__init__(self, model)
@@ -76,6 +79,7 @@ class CorrelationObs(BasicObs):
 
 
 class CVObs(BasicObs):
+    name = "cv"
 
     def __init__(self, model):
         self.model = model
@@ -102,6 +106,7 @@ class CVObs(BasicObs):
 
 
 class DeltaObs(BasicObs):
+    name = "Delta"
 
     def __init__(self, model):
         BasicObs.__init__(self, model)

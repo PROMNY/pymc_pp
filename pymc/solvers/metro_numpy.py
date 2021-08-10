@@ -1,22 +1,17 @@
 import numpy as np
-from tqdm import tqdm
+from tqdm import trange
 
 
-def metropolis_numpy(model, n_iter, show_tqdm=True):
+def metropolis_numpy(model, n_iter, disable_tqdm=True):
     assert model.T > 0, "T equal to zero"
     be = 1.0 / model.T
-
-    if show_tqdm:
-        iterable = tqdm(range(n_iter))
-    else:
-        iterable = range(n_iter)
 
     acc = 0
     act = 0
     model.calculate_eigv()
     E0 = model.get_F()
 
-    for _ in iterable:
+    for _ in trange(n_iter, disable=disable_tqdm):
         ch_empty = np.random.choice(model.empty_sites)
         ch_filled = np.random.choice(model.filled_sites)
 
