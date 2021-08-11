@@ -126,3 +126,12 @@ class DeltaObs(BasicObs):
         if add_result:
             self.value_list.append(d)
         return d
+
+
+class NeObs(BasicObs):
+    name = "Ne"
+    def calculate(self, add_result=True):
+        Ne = self.model.get_ne()
+        if add_result:
+            self.value_list.append(Ne)
+        return Ne
