@@ -29,11 +29,11 @@ class Simulator():
 
     def run_measurements(self, n_max):
         self.obs.reset()
-        iter = trange(n_max, desc="Measurements", leave=False)
-        self._solve_and_calculate(iter, self.obs)
+        iter_obj = trange(n_max, desc="Measurements", leave=False)
+        self._solve_and_calculate(iter_obj, self.obs)
         return self.obs.get_result()
 
-    def _solve_and_calculate(self, iter, obs_list):
-        for _ in iter:
+    def _solve_and_calculate(self, iter_obj, obs_list):
+        for _ in iter_obj:
             self.solver(self.FK, self.mc_step)
             obs_list.calculate()
