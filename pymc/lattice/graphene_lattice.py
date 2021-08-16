@@ -53,6 +53,7 @@ class GrapheneLattice():
                 self.adj_matrix[n*(n-1) + i][i] = 1
 
     def __fill_pos_matrix(self) -> None:
+        """Fill slef.pos_matrix with sites coordinates"""
         n = self.n
         pos_matrix = []
         for i in range(n**2):
