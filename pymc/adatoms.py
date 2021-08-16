@@ -2,8 +2,11 @@ import numpy as np
 
 
 class AdatomsMixin():
+    U: float
+    n: int
+    H: np.ndarray
 
-    def put_adatoms(self, nad, order="random"):
+    def put_adatoms(self, nad: int, order: str = "random") -> None:
         assert (self.U != 0), "U is equal to zero, adatoms can not be put"
         assert (nad < self.n**2), "too many adatoms"
         assert (nad > 0), "Wrong number of adatoms"
@@ -30,12 +33,12 @@ class AdatomsMixin():
 
         self.temp_H = np.copy(self.H)
 
-    def put_adatoms_order_random(self):
+    def put_adatoms_order_random(self) -> None:
         index = np.random.choice(self.n**2, self.nad_to_put, replace=False)
         for i in index:
             self.H[i, i] = self.U
 
-    def put_adatoms_order_separation(self):
+    def put_adatoms_order_separation(self) -> None:
         i = 0
         while i < self.nad_to_put:
             x_index = i % self.n
@@ -44,7 +47,7 @@ class AdatomsMixin():
             self.H[k, k] = self.U
             i += 1
 
-    def put_adatoms_order_sublattice(self):
+    def put_adatoms_order_sublattice(self) -> None:
 
         if self.nad_to_put >= self.n**2 // 2:
             for i in self.lattice.sub_matrix[0]:
@@ -57,11 +60,11 @@ class AdatomsMixin():
             for i in index:
                 self.H[i, i] = self.U
 
-    def swap_in_temp_H(self, i, j):
+    def swap_in_temp_H(self, i: int, j: int) -> None:
         self.temp_H[i, i] = 0.0
         self.temp_H[j, j] = self.U
 
-    def swap_in_H(self, i, j):
+    def swap_in_H(self, i: int, j: int) -> None:
         self.H[i, i] = 0.0
         self.H[j, j] = self.U
 
@@ -73,6 +76,6 @@ class AdatomsMixin():
 
         self.temp_H = np.copy(self.H)
 
-    def un_swap_in_temp_H(self, i, j):
+    def un_swap_in_temp_H(self, i: int, j: int) -> None:
         self.temp_H[j, j] = 0.0
         self.temp_H[i, i] = self.U

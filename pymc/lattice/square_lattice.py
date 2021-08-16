@@ -13,7 +13,7 @@ class SquareLattice():
         self.sub_matrix[i] i in [0,1] returns list of atoms in given sublattice  
         """
 
-    def __init__(self, n, periodic=True):
+    def __init__(self, n: int, periodic: bool = True) -> None:
         assert (n % 2 == 0 and n > 0), "n must be even and positive"
 
         self.n = n
@@ -24,7 +24,7 @@ class SquareLattice():
         self.sub_matrix = fill_sub_matrix(self.n)
         self.__fill_pos_matrix()
 
-    def __fill_adj_matrix(self):
+    def __fill_adj_matrix(self) -> None:
         n = self.n
         self.adj_matrix = np.zeros((n**2, n**2))
 
@@ -53,14 +53,13 @@ class SquareLattice():
                 self.adj_matrix[i][-n+i] = 1
                 self.adj_matrix[-n+i][i] = 1
 
-    def __fill_pos_matrix(self):
+    def __fill_pos_matrix(self) -> None:
         n = self.n
-        self.pos_matrix = []
+        pos_matrix = []
 
         for i in range(n**2):
             x = i % n
             y = n - (i // n) - 1
-            self.pos_matrix.append([x, y])
+            pos_matrix.append([x, y])
 
-        self.pos_matrix = np.asarray(self.pos_matrix)
-        self.sub_matrix = np.asarray(self.sub_matrix)
+        self.pos_matrix = np.asarray(pos_matrix)

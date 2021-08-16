@@ -5,7 +5,7 @@ from .adatoms import AdatomsMixin
 
 class Hamiltonian(AdatomsMixin):
 
-    def __init__(self, lattice, t=-1, U=0, cp=0, T=1):
+    def __init__(self, lattice, t: float = -1, U: float = 0, cp: float = 0, T: float = 1) -> None:
 
         self.lattice = lattice
         self.n = self.lattice.n
@@ -19,13 +19,13 @@ class Hamiltonian(AdatomsMixin):
         self.eigv = None
         self.temp_eigv = None
 
-    def calculate_eigv(self, temp=False):
+    def calculate_eigv(self, temp: bool = False):
         if temp:
             self.temp_eigv = np.linalg.eigvalsh(self.temp_H)
         else:
             self.eigv = np.linalg.eigvalsh(self.H)
 
-    def get_F(self, temp=False, T=None, cp=None):
+    def get_F(self, temp: bool = False, T: float = None, cp: float = None) -> float:
         if T is None:
             T = self.T
         if cp is None:
@@ -38,7 +38,7 @@ class Hamiltonian(AdatomsMixin):
         F = -1 * T * sum(np.log(np.exp((cp - eigv)/T) + 1))
         return F
 
-    def get_ne(self, temp=False, T=None, cp=None):
+    def get_ne(self, temp: bool = False, T: float = None, cp: float = None) -> float:
         if T is None:
             T = self.T
         if cp is None:

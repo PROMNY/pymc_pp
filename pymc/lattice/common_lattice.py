@@ -1,7 +1,8 @@
 import numpy as np
 
 
-def fill_sub_matrix(n):
+def fill_sub_matrix(n: int) -> np.ndarray:
+    """Fill the sublattice matrix acording to sites numeration"""
     sub_matrix = [[], []]
 
     for i in range(n**2):
